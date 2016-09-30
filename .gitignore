@@ -27,3 +27,9 @@
 *.exe
 *.out
 *.app
+
+
+# Tools config
+.vscode
+.DS_Store
+*.swp
