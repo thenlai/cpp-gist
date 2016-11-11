@@ -1,74 +1,44 @@
 #include <iostream>
-#include <fstream>
-#include "contact.h"
+#include "ui.h"
 
-const char* DB = "contacts.txt";
-
-void menu() {
-    std::cout << "Menu:";
-    std::cout << " 1. show,";
-    std::cout << " 2. search,";
-    std::cout << " 3. add,";
-    std::cout << " 4. edit,";
-    std::cout << " 5. delete,";
-    std::cout << " 6. save,";
-    std::cout << " 7. exit";
-    std::cout << std::endl;
-}
-
-void printPeople(People &p) {
-    std::cout << "name: " << p.name;
-    std::cout << ", tel: " << p.telephone;
-    std::cout << ", address: " << p.address;
-    std::cout << std::endl;
-}
-
-People getPeople() {
-    People p;
-    std::cout << "name: ";
-    std::cin >> p.name;
-    std::cout << "telephone: ";
-    std::cin >> p.telephone;
-    std::cout << "address: ";
-    std::cin >> p.address;
-    return p;
-}
+const char *DB = "contacts.txt";
 
 int main() {
     bool end = false;
-    Contact app = Contact(DB);
+    Contact model = Contact(DB);
     People t;
-    if (app.read()) {
+    if (model.read()) {
+        menu();
         while (!end) {
-            menu();
-            int action;
-            std::cin >> action;
-            switch (action) {
+            std::cout << "do: ";
+            std::string input;
+            switch (getAction()) {
                 case 1:
-                    app.show(&printPeople);
+                    model.show(&printPeople);
                     break;
                 case 2:
-                    // app.search();
+                    std::cout << "keyword: ";
+                    std::getline(std::cin, input);
+                    printSearch(model.search(1, input));
                     break;
                 case 3:
                     t = getPeople();
-                    app.add(t);
+                    model.add(t);
                     break;
                 case 4:
-                    // app.edit();
+                    // model.edit();
                     break;
                 case 5:
-                    // app.remove();
+                    // model.remove();
                     break;
                 case 6:
-                    app.save();
+                    model.save();
                     break;
                 case 7:
                     end = true;
                     break;
                 default:
-                    end = true;
-                    break;
+                    std::cout << "Invalid actions. Retry please." << std::endl;
             }
         }
     }
