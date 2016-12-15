@@ -18,7 +18,8 @@ class Contact {
         bool add(People &p);
         bool save();
         bool edit(People &p);
-        bool remove();
+        People& get(int index);
+        bool remove(int index);
         std::vector<People> *all();
         std::vector<People> search(int field, std::string keyword);
 };

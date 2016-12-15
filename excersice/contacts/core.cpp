@@ -1,20 +1,23 @@
-#include <iostream>
-#include "ui.h"
 
-const char *DB = "contacts.txt";
+void CoreApp::list() {
+    this->model.show(&printPeople);
+}
 
-int main() {
-    bool end = false;
-    Contact model = Contact(DB);
+void CoreApp::add() {
     People t;
-    if (model.read()) {
+    t = getPeople();
+    this->model.add(t);
+}
+
+void CoreApp:init() {
+    if (this->model.read()) {
         menu();
         while (!end) {
             std::cout << "do: ";
             std::string input;
             switch (getAction()) {
                 case 1:
-                    model.show(&printPeople);
+                    this->model.show(&printPeople);
                     break;
                 case 2:
                     std::cout << "keyword: ";
@@ -38,10 +41,8 @@ int main() {
                     end = true;
                     break;
                 default:
-                    // std::cout << "Invalid actions. Retry please." << std::endl;
-                    menu();
+                    std::cout << "Invalid actions. Retry please." << std::endl;
             }
         }
     }
-    return 0;
 }

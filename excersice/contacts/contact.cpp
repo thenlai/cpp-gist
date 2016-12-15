@@ -38,11 +38,15 @@ bool Contact::add(People &p) {
     this->hasChanged = true;
 }
 
+People& Contact::get(int index) {
+    return data.at(index);
+}
+
 bool Contact::edit(People &p) {
     this->hasChanged = true;
 }
 
-bool Contact::remove() {
+bool Contact::remove(int index) {
     this->hasChanged = true;
 }
 
